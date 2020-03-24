@@ -67,39 +67,36 @@ public class PermissionsManager
 				//this.plugin.logDebug("Current permission: " + permission.getName());
 				Map<String, Boolean> permissionChildren = permission.getChildren();
 
-				if ((permissionChildren.containsKey(node) && permissionChildren.get(node).booleanValue() == true) || permission.getName().contains(node))
+				if ((permissionChildren.containsKey(node) && permissionChildren.get(node).booleanValue() == true) && permission.getName().contains(node))
 				{
-					if (permission.getName().contains(node))
+					this.plugin.logDebug("Heyy, it was the correct perm finally... Perm: " + permission.getName() + " - Node: " + node);
+					this.plugin.logDebug("Current permissionDefault: " + permission.getDefault().toString());
+					if (permission.getDefault() == PermissionDefault.TRUE)
 					{
-						this.plugin.logDebug("Heyy, it was the correct perm finally... Perm: " + permission.getName() + " - Node: " + node);
-						this.plugin.logDebug("Current permissionDefault: " + permission.getDefault().toString());
-						if (permission.getDefault() == PermissionDefault.TRUE)
+						this.plugin.logDebug("It was default true! Returning true!");
+						return true;
+					}
+					else if (permission.getDefault() == PermissionDefault.OP)
+					{
+						this.plugin.logDebug("It was for operators!");
+						if (player.isOp())
 						{
-							this.plugin.logDebug("It was default true! Returning true!");
+							this.plugin.logDebug("Player is an operator! Returning true!");
 							return true;
 						}
-						else if (permission.getDefault() == PermissionDefault.OP)
-						{
-							this.plugin.logDebug("It was for operators!");
-							if (player.isOp())
-							{
-								this.plugin.logDebug("Player is an operator! Returning true!");
-								return true;
-							}
-							this.plugin.logDebug("Player is not an operator!");
-						}
-						else if (permission.getDefault() == PermissionDefault.NOT_OP)
-						{
-							this.plugin.logDebug("It was for non-operators!");
-							if (!player.isOp())
-							{
-								this.plugin.logDebug("Player is not an operator! Returning true!");
-								return true;
-							}
-							this.plugin.logDebug("Player is an operator!");
-						}
-						break;
+						this.plugin.logDebug("Player is not an operator!");
 					}
+					else if (permission.getDefault() == PermissionDefault.NOT_OP)
+					{
+						this.plugin.logDebug("It was for non-operators!");
+						if (!player.isOp())
+						{
+							this.plugin.logDebug("Player is not an operator! Returning true!");
+							return true;
+						}
+						this.plugin.logDebug("Player is an operator!");
+					}
+					break;
 				}
 			}
 		}

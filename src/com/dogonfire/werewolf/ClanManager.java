@@ -22,7 +22,7 @@ public class ClanManager
 {
 	private Werewolf	plugin;
 
-	public static enum ClanType
+	public enum ClanType
 	{
 		WildBite, WerewolfBite, Potion;
 	}
@@ -132,7 +132,7 @@ public class ClanManager
 
 	public String getClanName(UUID playerId)
 	{
-		return (String) this.clanNames.get(Werewolf.getWerewolfManager().getWerewolfClan(playerId));
+		return this.clanNames.get(Werewolf.getWerewolfManager().getWerewolfClan(playerId));
 	}
 
 	public String getWerewolfAccountForClan(ClanType type)
@@ -148,7 +148,7 @@ public class ClanManager
 	
 	public String getWerewolfTextureForClan(ClanType type)
 	{
-	return this.werewolfTextures.get(type);
+		return this.werewolfTextures.get(type);
 	}
 	
 	public String getWerewolfTextureSignatureForClan(ClanType type)
@@ -181,7 +181,7 @@ public class ClanManager
 		double points = 0.0D;
 		if (this.playerClanPoints.containsKey(player.getName()))
 		{
-			points = ((Double) this.playerClanPoints.get(player.getName())).doubleValue();
+			points = this.playerClanPoints.get(player.getName()).doubleValue();
 		}
 		
 		switch (mobType)
@@ -257,6 +257,7 @@ public class ClanManager
 		return (String) this.clanNames.get(clan);
 	}
 
+	// TODO Bloodrage clan?
 	public void updateClans()
 	{
 		if (!this.plugin.useClans)

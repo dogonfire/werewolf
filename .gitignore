@@ -14,3 +14,7 @@ dependency-reduced-pom.xml
 
 # Maven build
 /target/
+
+# IDEA
+/.idea/
+werewolf.iml

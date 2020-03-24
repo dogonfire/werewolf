@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockDispenseArmorEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
@@ -242,7 +243,21 @@ public class InteractListener implements Listener
 		{
 			checkForDrinkingWerewolfCurePotion(event);
 		}
-	}	
+	}
+
+	@EventHandler
+	public void dispenseArmorEvent(BlockDispenseArmorEvent event)
+	{
+		if (event.getTargetEntity() instanceof Player)
+		{
+			Player player = (Player) event.getTargetEntity();
+
+			if (Werewolf.getWerewolfManager().hasWerewolfSkin(player.getUniqueId()))
+			{
+				event.setCancelled(true);
+			}
+		}
+	}
 	
 	public boolean isForbiddenDefense(Material material)
 	{

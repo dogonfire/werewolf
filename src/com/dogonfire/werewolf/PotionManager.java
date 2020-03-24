@@ -12,9 +12,8 @@ import org.bukkit.potion.PotionEffectType;
 public class PotionManager
 {
   
-  PotionManager(Werewolf plugin)
+  PotionManager()
   {
-	  
   }
   
   public ItemStack createWerewolfInfectionPotion()

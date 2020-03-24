@@ -12,6 +12,8 @@ YouTeleportedToClanHome:
 - You are now in the home of the $Type clan 
 CurrentBounty:
 - The bounty for slaying a werewolf is $Amount
+YourWerewolfName:
+- Your werewolf name is $PlayerName
 YouCutTheHeadOfWerewolf:
 - You cut the head of that werewolf!
 FullMoonNumberOfWerewolves:

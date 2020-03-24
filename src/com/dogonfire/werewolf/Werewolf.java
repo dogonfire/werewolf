@@ -299,12 +299,9 @@ public class Werewolf extends JavaPlugin
 
 		for (Player player : getServer().getOnlinePlayers())
 		{
-			if (getWerewolfManager().isWerewolf(player))
+			if (getWerewolfManager().isWerewolf(player) && getWerewolfManager().hasWerewolfSkin(player.getUniqueId()))
 			{
-				if (getWerewolfManager().hasWerewolfSkin(player.getUniqueId()))
-				{
-					untransform(player);
-				}
+				untransform(player);
 			}
 		}
 
@@ -351,7 +348,7 @@ public class Werewolf extends JavaPlugin
 		clanManager = new ClanManager(this);
 		// potionManager = new PotionManager(this);
 		languageManager = new LanguageManager(this);
-		statisticsManager = new StatisticsManager(this);
+		statisticsManager = new StatisticsManager();
 		itemManager = new ItemManager(this);		
 		damageListener = new DamageListener(this);
 		playerListener = new PlayerListener(this);
@@ -378,7 +375,7 @@ public class Werewolf extends JavaPlugin
 			inventoryListener = new InventoryListener(this);
 		}
 
-		pu = new PacketUtils(this);
+		pu = new PacketUtils();
 
 		PluginManager pm = getServer().getPluginManager();
 
@@ -458,7 +455,7 @@ public class Werewolf extends JavaPlugin
 
 		if (this.useScoreboards)
 		{
-			Werewolf.werewolfScoreboardManager = new WerewolfScoreboardManager(this);
+			Werewolf.werewolfScoreboardManager = new WerewolfScoreboardManager();
 		}
 
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable()
@@ -508,7 +505,7 @@ public class Werewolf extends JavaPlugin
 	{
 		long time = world.getFullTime() % 24000L;
 
-		return (time > 10000L) && (time < 14000L) && (MoonCheck(world) == MoonPhase.FullMoon);
+		return (time > 10000L) && (time < 14000L) && (moonCheck(world) == MoonPhase.FullMoon);
 	}
 
 	public boolean isNightInWorld(World world)
@@ -522,7 +519,7 @@ public class Werewolf extends JavaPlugin
 	{
 		if (plugin.onlyTransformDuringFullMoon)
 		{
-			return (isNightInWorld(world)) && (MoonCheck(world) == MoonPhase.FullMoon);
+			return (isNightInWorld(world)) && (moonCheck(world) == MoonPhase.FullMoon);
 		}
 		return isNightInWorld(world);
 	}
@@ -532,7 +529,7 @@ public class Werewolf extends JavaPlugin
 		return MoonPhase.values()[I];
 	}
 
-	public MoonPhase MoonCheck(World world)
+	public MoonPhase moonCheck(World world)
 	{
 		long T = world.getFullTime();
 		long D = T / 24000L;
@@ -565,8 +562,9 @@ public class Werewolf extends JavaPlugin
 			return getLanguageManager().getLanguageString(LanguageManager.LANGUAGESTRING.In2Days, ChatColor.GOLD);
 		case 7:
 			return getLanguageManager().getLanguageString(LanguageManager.LANGUAGESTRING.Tomorrow, ChatColor.GOLD);
+		default:
+			return "WTF?";
 		}
-		return "WTF?";
 	}
 
 	public static enum MoonPhase {

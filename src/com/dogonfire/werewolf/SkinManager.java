@@ -57,7 +57,7 @@ public class SkinManager
 			werewolfAccountName = Werewolf.getClanManager().getWerewolfAccountForClan(clantype);
 		}
 
-		if (werewolfName.isEmpty() || werewolfName == null)
+		if (werewolfName.isEmpty())
 		{
 			werewolfName = "Werewolf";
 		}

@@ -189,12 +189,9 @@ public class WerewolfManager
 		{
 			for (UUID playerId : getOnlineWerewolves(world))
 			{
-				if (this.isWerewolf(playerId))
+				if (this.isWerewolf(playerId) && this.isWolfForm(playerId))
 				{
-					if (this.isWolfForm(playerId))
-					{
-						werewolfPlayers.add(playerId);
-					}
+					werewolfPlayers.add(playerId);
 				}
 			}
 		}
@@ -270,7 +267,7 @@ public class WerewolfManager
 
 			ClanType playerClanType = this.getWerewolfClan(playerId);
 
-			if (playerClanType == clanType)
+			if (playerClanType.equals(clanType))
 			{
 				werewolfList.add(playerId);
 			}
@@ -426,13 +423,8 @@ public class WerewolfManager
 		}
 
 		String wolfState = this.werewolvesConfig.getString(playerId.toString() + ".WolfState");
-
-		if (wolfState == null)
-		{
-			return false;
-		}
-
-		return true;
+		
+		return wolfState != null;
 	}
 
 	public boolean isFullWerewolf(UUID playerId)
@@ -837,7 +829,7 @@ public class WerewolfManager
 
 		String fullName = givenName + surname;
 
-		if (fullName == "")
+		if (fullName.isEmpty())
 		{
 			fullName = "Werewolf";
 		}

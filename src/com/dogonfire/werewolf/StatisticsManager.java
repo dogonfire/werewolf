@@ -6,6 +6,8 @@ import java.util.UUID;
 
 public class StatisticsManager
 {
+	private HashMap<UUID, WerewolfStatistics> werewolfStatistics = new HashMap<UUID, WerewolfStatistics>();
+
 	public class WerewolfStatistics
 	{
 		public int numberOfMobKills;
@@ -15,12 +17,9 @@ public class StatisticsManager
 		WerewolfStatistics()
 		{}
 	}
-	
-	private HashMap<UUID, WerewolfStatistics> werewolfStatistics = new HashMap<UUID, WerewolfStatistics>();
 		
-	StatisticsManager(Werewolf plugin)
-	{
-		
+	StatisticsManager()
+	{	
 	}
 
 	public void clearStatistics(UUID playerId)

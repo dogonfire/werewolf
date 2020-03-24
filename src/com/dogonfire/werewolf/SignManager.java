@@ -329,7 +329,7 @@ public class SignManager implements Listener
 			Player player = event.getPlayer();
 			String typeLine = sign.getLine(1);
 			
-			if (typeLine.equals("Infection") && (player.isOp() || Werewolf.getPermissionsManager().hasPermission(player, "werewolf.sign.infection.use")))
+			if ("Infection".equals(typeLine) && (player.isOp() || Werewolf.getPermissionsManager().hasPermission(player, "werewolf.sign.infection.use")))
 			{
 				double price = 0.0D;
 				if (this.plugin.vaultEnabled)
@@ -356,7 +356,7 @@ public class SignManager implements Listener
 
 				return true;
 			}
-			else if (typeLine.equals("Cure") && (player.isOp() || (Werewolf.getPermissionsManager().hasPermission(player, "werewolf.sign.cure.use"))))
+			else if ("Cure".equals(typeLine) && (player.isOp() || (Werewolf.getPermissionsManager().hasPermission(player, "werewolf.sign.cure.use"))))
 			{
 				double price = 0.0D;
 
@@ -382,7 +382,7 @@ public class SignManager implements Listener
 
 				return true;
 			}
-			else if (typeLine.equals("Wolfbane") && (player.isOp() || (Werewolf.getPermissionsManager().hasPermission(player, "werewolf.sign.wolfbane.use"))))
+			else if ("Wolfbane".equals(typeLine) && (player.isOp() || (Werewolf.getPermissionsManager().hasPermission(player, "werewolf.sign.wolfbane.use"))))
 			{
 				double price = 0.0D;
 
@@ -408,7 +408,7 @@ public class SignManager implements Listener
 
 				return true;
 			}
-			else if (typeLine.equals("SilverSword") && (player.isOp() || (Werewolf.getPermissionsManager().hasPermission(player, "werewolf.sign.silversword.use"))))
+			else if ("SilverSword".equals(typeLine) && (player.isOp() || (Werewolf.getPermissionsManager().hasPermission(player, "werewolf.sign.silversword.use"))))
 			{
 				double price = 0.0D;
 
@@ -434,7 +434,7 @@ public class SignManager implements Listener
 
 				return true;
 			}
-			else if (typeLine.equals("LoreBook") && (player.isOp() || (Werewolf.getPermissionsManager().hasPermission(player, "werewolf.sign.lorebook.use"))))
+			else if ("LoreBook".equals(typeLine) && (player.isOp() || (Werewolf.getPermissionsManager().hasPermission(player, "werewolf.sign.lorebook.use"))))
 			{
 				double price = 0.0D;
 

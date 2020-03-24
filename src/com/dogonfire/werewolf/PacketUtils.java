@@ -8,7 +8,7 @@ import org.bukkit.potion.PotionEffectType;
 public class PacketUtils
 {
 
-	PacketUtils(Werewolf p)
+	PacketUtils()
 	{
 	}
 

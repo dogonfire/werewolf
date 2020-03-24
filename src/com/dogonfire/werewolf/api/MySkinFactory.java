@@ -76,6 +76,7 @@ public class MySkinFactory implements IWerewolfDisguiseFactory
 				// Apply the loaded SkinProperty to the player
 				mySkin.getHandler().setSkinProperty(player, disguiseSkinProperty);
 				mySkin.getHandler().update(player);
+				Werewolf.getWerewolfScoreboardManager().showNametagForPlayer(player, false);
 
 				return true;
 			}
@@ -123,6 +124,7 @@ public class MySkinFactory implements IWerewolfDisguiseFactory
 				mySkin.getHandler().setSkinProperty(player, playerSkinProperty);
 				mySkin.getHandler().update(player);
 				mySkin.getCache().resetSkinOfPlayer(player.getUniqueId());
+				Werewolf.getWerewolfScoreboardManager().showNametagForPlayer(player, true);
 				
 				return true;
 			}
@@ -144,11 +146,19 @@ public class MySkinFactory implements IWerewolfDisguiseFactory
 	public MySkinFactory()
 	{
 		this.mySkin = (MySkin) Bukkit.getPluginManager().getPlugin("MySkin");
-		
-		mySkin.getCache().saveSkinOfPlayer(UUID.fromString(Werewolf.instance().potionAccountUUID), UUID.fromString(Werewolf.instance().potionAccountUUID));
-		mySkin.getCache().saveSkinOfPlayer(UUID.fromString(Werewolf.instance().werewolfBiteAccountUUID), UUID.fromString(Werewolf.instance().werewolfBiteAccountUUID));
-		mySkin.getCache().saveSkinOfPlayer(UUID.fromString(Werewolf.instance().wildBiteAccountUUID), UUID.fromString(Werewolf.instance().wildBiteAccountUUID));
-		mySkin.getCache().saveSkinOfPlayer(UUID.fromString(Werewolf.instance().alphaAccountUUID), UUID.fromString(Werewolf.instance().alphaAccountUUID));
+
+		try
+		{
+			mySkin.getCache().saveSkinOfPlayer(UUID.fromString(Werewolf.instance().potionAccountUUID), UUID.fromString(Werewolf.instance().potionAccountUUID));
+			mySkin.getCache().saveSkinOfPlayer(UUID.fromString(Werewolf.instance().werewolfBiteAccountUUID), UUID.fromString(Werewolf.instance().werewolfBiteAccountUUID));
+			mySkin.getCache().saveSkinOfPlayer(UUID.fromString(Werewolf.instance().wildBiteAccountUUID), UUID.fromString(Werewolf.instance().wildBiteAccountUUID));
+			mySkin.getCache().saveSkinOfPlayer(UUID.fromString(Werewolf.instance().alphaAccountUUID), UUID.fromString(Werewolf.instance().alphaAccountUUID));
+		}
+		catch (NullPointerException e)
+		{
+			Werewolf.instance().log("[ERROR] Couldn't save Werewolf skins to MySkin's cache... Werewolves are disabled!");
+			Werewolf.instance().onDisable();
+		}
 	}
 	
 	@Override

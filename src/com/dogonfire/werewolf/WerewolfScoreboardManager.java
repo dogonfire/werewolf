@@ -11,16 +11,19 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.Team;
 
 public class WerewolfScoreboardManager
 {
 	private ScoreboardManager manager;
 	private HashMap<UUID, Objective> playerHuntingObjectives = new HashMap<UUID, Objective>();
 	
-	WerewolfScoreboardManager(Werewolf plugin)
+	WerewolfScoreboardManager()
 	{
 		manager = Bukkit.getScoreboardManager();
 	}
+
+	// Hunting Scoreboard \\
 
 	public void newPlayerHuntingScoreboard(Player player)
 	{
@@ -29,7 +32,7 @@ public class WerewolfScoreboardManager
 		//Team team = board.registerNewTeam("teamname");
 	
 		// Setting the scoreboard/objective and it's display name
-		Objective objective = board.registerNewObjective("test", "dummy", ChatColor.DARK_AQUA + "Hunting Status");
+		Objective objective = board.registerNewObjective("WerewolfHunting", "dummy", ChatColor.DARK_AQUA + "Hunting Status");
 	
 		// Setting where to display the scoreboard/objective (either SIDEBAR, PLAYER_LIST or BELOW_NAME)
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
@@ -75,5 +78,48 @@ public class WerewolfScoreboardManager
 	{
 		Score score = playerHuntingObjectives.get(player.getUniqueId()).getScore(ChatColor.RED + "Vampires slain:"); //Get a fake offline player
 		score.setScore(kills);
+	}
+
+
+	// Scoreboard Teams \\
+	public void showNametagForPlayer(Player player, Boolean showNametag)
+	{
+		Werewolf.instance().logDebug("running showNametagForPlayer(" + player.getName() + ", " + showNametag + ")");
+		Scoreboard board = manager.getMainScoreboard();
+
+		if (board != null)
+		{
+			Werewolf.instance().logDebug("Board is not null for player!");
+			if (Werewolf.getWerewolfManager().isWerewolf(player))
+			{
+				Werewolf.instance().logDebug("Player is a Werewolf!");
+				Team werewolfTeam = null;
+
+				// Make sure the team exists
+				if (board.getTeam("Werewolf") != null)
+				{
+					werewolfTeam = board.getTeam("Werewolf");
+				}
+				else if (board.getTeam("Werewolf") == null)
+				{
+					werewolfTeam = board.registerNewTeam("Werewolf");
+					werewolfTeam.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.NEVER);
+				}
+
+				// Apply the edits necessary for the player
+				if (!showNametag)
+				{
+					werewolfTeam.addEntry(player.getName());
+					Werewolf.instance().logDebug("The player, " + player.getName() + ", is now added to the Werewolf Team (!NO NAMETAG!)");
+				}
+				else if (showNametag && werewolfTeam.getEntries().contains(player.getName()))
+				{
+					werewolfTeam.removeEntry(player.getName());
+					Werewolf.instance().logDebug("The player, " + player.getName() + ", is now removed from the Werewolf Team (!NAMETAG SHOWN!)");
+				}
+				return;
+			}
+		}
+		Werewolf.instance().logDebug("Could not find the main scoreboard!");
 	}
 }

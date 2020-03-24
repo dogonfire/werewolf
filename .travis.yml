@@ -15,9 +15,9 @@ before_install:
   - wget -P "lib/" https://www.doggycraft.dk/lib/MySkin.jar
 addons:
   sonarcloud:
-    organization: "dogonfire"
+    organization: "doggycraftdk"
     token:
-      secure: "TSveGpsVp/WNHcB7zMD8Bool6j09F1J95L6dnWF8slJrUlytZOUMCSP76MdiLngnBaiWlXAkgBnD1QEwdg/xkrl6EVBTT3oys2AKhikR4+CRmgZRoW/adSmOR/GUA6IPM/Uj2iM+bWkjFxAFHvvA0TrNjqmAHEaKpMRL+yHsKysKXapIJ2nd/VEfv4gO9OXt7YbKLGgNgWdhuWlbC10rwhHPO8Bj4yRr3UeILqFUF2C7wHJt+w45Gcd4oG//A7anWcLWR+QUeJx5HVe2sAFPIOVslxnY6eFxcZXOVXsiW2yRehyo/ANEnGEcfAfiKyZ5hqgLWhth7fs6AeolozkWAT4M0S+uu8YyPeNk7HlUwEiMAMxtnB5zv2Q0i9XU1d2d3AYwX/Ru5kaMILp0zmT8SryjEsnEwpNmMdK3KmuUqIjwcdClvZyS6Z7WRvth+rtI5QBzZlYl3L6b9tRN1mVUQFeM5Sgo4sYowPfwMnHyhDAb4zuH2gwwFRtSMbuxesK7GpN2DiXKDx1K0UlXWCt2CviyIjnG1iYHVE6kLvMq0W668l8NrM6ANtj5Q0PoBXgAYI+Im8A/h8Hf5MAiC/J9Ou9KFLndxV+aO26nnTYkrFpPB1lfhncb7fcucsmu+M0Ld37hFQtp+rZ3jSPnhQFFuMRqwx1lMHbsQB1tqfCMWvg="
+      secure: $SONAR_TOKEN
 
 script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=DogOnFire_Werewolf
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=DoggyCraftDK_Werewolf

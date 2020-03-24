@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -62,6 +63,10 @@ public class TrophyManager implements Listener
 		}
 	}
 
+	// UUID's will render the skulls blank, so we use PlayerNames, for now.
+	// Otherwise we might have to use the cached textured from MySkin, or just request from MojangAPI,
+	// and cache them here...?
+	@SuppressWarnings("deprecation") 
 	public ItemStack getTrophyFromWerewolfPlayer(UUID killerId, UUID werewolfId)
 	{
 		ItemStack skullTrophy = new ItemStack(Material.PLAYER_HEAD);
@@ -73,11 +78,27 @@ public class TrophyManager implements Listener
 		DateFormat formatter = new SimpleDateFormat(pattern);
 
 		ClanType clan = Werewolf.getWerewolfManager().getWerewolfClan(werewolfId);
-				
-		OfflinePlayer skullPlayer = plugin.getServer().getOfflinePlayer(Werewolf.getClanManager().getWerewolfAccountIdForClan(clan));
+		OfflinePlayer skullPlayer = null;
+
+		if (Werewolf.getClanManager().isAlpha(werewolfId))
+		{
+			skullPlayer = plugin.getServer().getOfflinePlayer(Werewolf.getClanManager().getWerewolfAccountForAlpha(clan));
+		}
+		else
+		{
+			skullPlayer = plugin.getServer().getOfflinePlayer(Werewolf.getClanManager().getWerewolfAccountForClan(clan));
+		}
 		
 		skullMeta.setOwningPlayer(skullPlayer);
-		skullMeta.setDisplayName(ChatColor.GOLD + "Werewolf Head");
+		skullTrophy.setItemMeta(skullMeta);
+		
+		String werewolfName = "Werewolf";
+		if (plugin.werewolfNamesEnabled)
+		{
+			werewolfName = Werewolf.getWerewolfManager().getWerewolfName(werewolfId) + "'s";
+		}
+
+		skullMeta.setDisplayName(ChatColor.GOLD + werewolfName + " Head");
 
 		String killerName = plugin.getServer().getPlayer(killerId).getName();
 		

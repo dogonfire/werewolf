@@ -114,7 +114,7 @@ public class LanguageManager
 		String languageFileName = this.plugin.language + ".yml";
 		File languageConfigFile = new File(this.plugin.getDataFolder() + "/lang/" + languageFileName);
 		
-		if ((!languageConfigFile.exists()) || languageConfigFile == null)
+		if (!languageConfigFile.exists())
 		{
 			return;
 		}
@@ -262,6 +262,7 @@ public class LanguageManager
 		YouPlacedASilverSwordSign,
 		YouPlacedABookSign,
 		YouAreNotTheAlphaOfTheClan,
+		YourWerewolfName,
 		DenyVampire,
 		NoRecentAlphaCall,
 		ClanAlphaCannotAnswerCall,

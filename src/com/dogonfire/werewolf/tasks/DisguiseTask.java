@@ -256,15 +256,15 @@ public class DisguiseTask implements Runnable
 		Werewolf.getWerewolfManager().pushPlayerData(this.player);
 		Werewolf.getStatisticsManager().clearStatistics(this.player.getUniqueId());
 
+		if (plugin.useScoreboards)
+		{
+			Werewolf.getWerewolfScoreboardManager().newPlayerHuntingScoreboard(this.player);
+		}
+
 		// Before trying to disguise, check if Disguises are enabled...
 		if (plugin.disguisesEnabled)
 		{
 			Werewolf.getSkinManager().setWerewolfSkin(this.player, this.player.getPlayerListName());
-		}
-
-		if (plugin.useScoreboards)
-		{
-			Werewolf.getWerewolfScoreboardManager().newPlayerHuntingScoreboard(this.player);
 		}
 
 		if (this.plugin.isFullMoonInWorld(this.player.getWorld()) && !Werewolf.getWerewolfManager().hasRecentTransform(this.player.getUniqueId()))

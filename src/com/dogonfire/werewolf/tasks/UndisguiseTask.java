@@ -63,12 +63,11 @@ public class UndisguiseTask implements Runnable
 				player.setPlayerListName(playerListName);
 			}*/
 			player.setPlayerListName(player.getDisplayName());
-			if (this.makeVisible)
+
+			// Before trying to undisguise, check if Disguises are enabled...
+			if (this.makeVisible && plugin.disguisesEnabled)
 			{
-				// Before trying to undisguise, check if Disguises are enabled...
-				if (plugin.disguisesEnabled) {
-					Werewolf.getSkinManager().unsetWerewolfSkin(player);
-				}
+				Werewolf.getSkinManager().unsetWerewolfSkin(player);
 			}
 			if (this.plugin.healthBarEnabled)
 			{
@@ -84,7 +83,7 @@ public class UndisguiseTask implements Runnable
 				
 		Werewolf.getWerewolfManager().popPlayerData(this.playerId);
 		
-		if (this.plugin.useWerewolfGroupName)
+		if (this.plugin.useWerewolfGroupName && player != null)
 		{
 			String groupName = Werewolf.getWerewolfManager().getOriginalPermissionGroup(playerId);
 			if ((groupName != null) && (!groupName.equals(this.plugin.werewolfGroupName)))
@@ -101,7 +100,7 @@ public class UndisguiseTask implements Runnable
 		{
 			Werewolf.getWerewolfManager().setNotWerewolf(this.playerId);
 		}
-		else
+		else if (player != null)
 		{
 			Werewolf.getWerewolfManager().setHumanForm(this.playerId, player.getName());
 		}

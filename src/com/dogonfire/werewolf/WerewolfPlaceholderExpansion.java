@@ -56,7 +56,7 @@ class WerewolfPlaceholderExpansion extends PlaceholderExpansion
 		}
 
 		// %werewolf_clan%
-		if (identifier.equals("clan"))
+		if ("clan".equals(identifier))
 		{
 			UUID playerUUID = player.getUniqueId();
 			String clan = "";
@@ -68,7 +68,7 @@ class WerewolfPlaceholderExpansion extends PlaceholderExpansion
 		}
 
 		// %werewolf_werewolf%
-		if (identifier.equals("werewolf"))
+		if ("werewolf".equals(identifier))
 		{
 			String isWerewolf = "";
 			if (Werewolf.getWerewolfManager().isWerewolf(player))
